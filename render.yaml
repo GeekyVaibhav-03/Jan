@@ -12,6 +12,8 @@ services:
     startCommand: node server.js
     healthCheckPath: /api/health
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
@@ -21,10 +23,7 @@ services:
       - key: GEMINI_API_KEY
         sync: false
       - key: FRONTEND_URL
-        fromService:
-          type: web
-          name: jansathi-frontend
-          property: host
+        value: "*"
 
   # ============================================================================
   # 2. Frontend React Client (Vite Static Site)
@@ -40,6 +39,8 @@ services:
         source: /*
         destination: /index.html
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: VITE_API_URL
         fromService:
           type: web
